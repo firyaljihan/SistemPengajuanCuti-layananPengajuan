@@ -24,8 +24,8 @@ class PengajuanCutiController extends Controller
         $selesai = Carbon::parse($request->tanggal_selesai);
         $totalHari = $mulai->diffInDays($selesai) + 1;
 
-       $urlServiceKaryawan = env('KARYAWAN_SERVICE_URL') . $request->id_karyawan;
-       
+       $urlServiceKaryawan = env('LAYANAN_KARYAWAN_URL') . $request->id_karyawan;
+
         try {
             $response = Http::get($urlServiceKaryawan);
 
@@ -71,6 +71,15 @@ class PengajuanCutiController extends Controller
             'bukti_pendukung' => $namaFile,
             'status'          => 'Pending',
         ]);
+
+        $payload = [
+            'id_pengajuan'  => $pengajuan->id,
+            'id_karyawan'   => $pengajuan->id_karyawan,
+            'kategori_cuti' => $pengajuan->kategori_cuti,
+            'total_hari'    => $pengajuan->total_hari,
+        ];
+
+        \App\Jobs\NotifikasiCuti::dispatch($payload);
 
         return response()->json([
             'success' => true,
