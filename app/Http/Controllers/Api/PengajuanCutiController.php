@@ -24,8 +24,8 @@ class PengajuanCutiController extends Controller
         $selesai = Carbon::parse($request->tanggal_selesai);
         $totalHari = $mulai->diffInDays($selesai) + 1;
 
-        $urlServiceKaryawan = "http://127.0.0.1:8001/api/karyawan/" . $request->id_karyawan;
-
+       $urlServiceKaryawan = env('KARYAWAN_SERVICE_URL') . $request->id_karyawan;
+       
         try {
             $response = Http::get($urlServiceKaryawan);
 
