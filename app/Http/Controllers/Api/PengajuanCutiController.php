@@ -105,4 +105,30 @@ class PengajuanCutiController extends Controller
             'data'    => $pengajuan
         ], 200);
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|string|in:Disetujui,Ditolak',
+        ]);
+
+        $pengajuan = Pengajuan::find($id);
+
+        if (!$pengajuan) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data pengajuan cuti tidak ditemukan!'
+            ], 404);
+        }
+
+        $pengajuan->update([
+            'status' => $request->status
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Status pengajuan cuti berhasil diperbarui menjadi {$request->status}!",
+            'data'    => $pengajuan
+        ], 200);
+    }
 }

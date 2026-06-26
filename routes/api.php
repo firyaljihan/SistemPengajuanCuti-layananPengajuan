@@ -10,3 +10,5 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/pengajuan-cuti', [PengajuanCutiController::class, 'store']);
 Route::get('/pengajuan-cuti/{id}', [PengajuanCutiController::class, 'show']);
+Route::put('/pengajuan-cuti/{id}', [PengajuanCutiController::class, 'update']);
+
