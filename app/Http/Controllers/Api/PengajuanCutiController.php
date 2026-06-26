@@ -87,4 +87,22 @@ class PengajuanCutiController extends Controller
             'data'    => $pengajuan
         ], 201);
     }
+
+    public function show($id)
+    {
+        $pengajuan = \App\Models\Pengajuan::find($id);
+
+        if (!$pengajuan) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data pengajuan cuti tidak ditemukan!'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Detail pengajuan cuti berhasil diambil.',
+            'data'    => $pengajuan
+        ], 200);
+    }
 }

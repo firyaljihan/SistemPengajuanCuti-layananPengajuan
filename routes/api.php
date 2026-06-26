@@ -9,3 +9,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/pengajuan-cuti', [PengajuanCutiController::class, 'store']);
+Route::get('/pengajuan-cuti/{id}', [PengajuanCutiController::class, 'show']);
